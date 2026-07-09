@@ -13,7 +13,10 @@ Large data files are downloaded locally and are intentionally not committed.
 ## Layout
 
 ```text
-data/ephemeris/       Local JPL BSP files, e.g. de440s.bsp; ignored by git
+data/ephemeris/       JPL BSP file (`de440s.bsp`); ignored by git
+data/skyfield/        IERS `finals2000A.all` time/Earth-rotation data; ignored by git
+data/stars/            Hipparcos star catalogue; ignored by git
+data/rust-kernels/     ANISE/SPICE Earth-orientation, time, and frame kernels; ignored by git
 docs/ho229/           Local Pub. 229 / HO 229 PDFs; ignored by git
 reference-python/     Skyfield reference scripts and uv environment
 celnav-browser/       Vite/React/TypeScript browser app
@@ -33,8 +36,13 @@ cd ~/src/celnav
 This downloads:
 
 - `de440s.bsp` to `data/ephemeris/` for Skyfield; about 32 MB.
+- IERS `finals2000A.all` to `data/skyfield/`, for UTC/UT1/TT handling; it is refreshed after 30 days.
+- Hipparcos `hip_main.dat` to `data/stars/`, for proper-motion-aware reference-star work; about 51 MB.
 - Pub. 229 / HO 229 PDF volumes 1–6 to `docs/ho229/`; about 39 MB total.
-- Xaxero reference HTML pages to `third_party/xaxero/`.
+- Xaxero reference HTML, its executable browser dependencies, manifest, icons, and logo to `third_party/xaxero/`. `cnavj-local.html` is rewritten to use the saved JavaScript and works without network access (with system-font fallbacks).
+- NAIF/ANISE Rust support kernels to `data/rust-kernels/`: Earth orientation (`.bpc`), leap seconds (`.tls`), and DE440-aligned frame/GM text kernels (`.tpc`).
+
+The Xaxero capture is a readable reference snapshot, not a dependency or a redistributable part of this MIT/Apache-licensed project. Its page claims GPLv3 but its footer says “All rights reserved” and no standalone source repository or licence file was found. Do not copy its code into this project without resolving that conflict with Xaxero.
 
 ## Skyfield reference
 
@@ -47,7 +55,7 @@ uv run python skyfield_reference.py \
   --lon -30
 ```
 
-Output includes GHA, declination, computed altitude `Hc`, and true azimuth `Zn`.
+Output includes GHA, declination, **geometric** computed altitude, and true azimuth `Zn`. Apply refraction and the other chosen nautical correction convention explicitly when comparing an observed sextant altitude.
 
 ## Browser app
 
@@ -67,7 +75,7 @@ cd celnav-rs
 cargo check
 ```
 
-Rust is a later route for an owned calculation core and/or WebAssembly build.
+Rust is a later route. `anise` is installed and its local DE440s BSP load has been smoke-tested. The support kernels needed to develop the next stages are present, but the Rust solution is not yet a celestial-navigation engine: it still needs a documented time-scale, apparent-place, topocentric, and refraction pipeline. Do not treat it as a Skyfield replacement yet.
 
 ## About This Code
 

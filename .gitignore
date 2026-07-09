@@ -10,6 +10,9 @@ __pycache__/
 
 # Large/reference data downloaded locally, not committed
 data/ephemeris/*.bsp
+data/skyfield/*
+data/stars/*
+data/rust-kernels/*
 docs/ho229/*.pdf
 
 # Third-party downloaded apps/snapshots: keep local unless licence/source is reviewed

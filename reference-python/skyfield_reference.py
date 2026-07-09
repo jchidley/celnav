@@ -2,11 +2,15 @@ from __future__ import annotations
 
 import argparse
 import json
-from math import atan2, degrees
+import os
+from pathlib import Path
 
-from skyfield.api import Loader, N, S, E, W, wgs84
+from skyfield.api import E, N, S, W, Loader, wgs84
 
-EPHEMERIS_DIR = "/home/jack/src/celnav/data/ephemeris"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DATA_ROOT = Path(os.environ.get("CELNAV_DATA", PROJECT_ROOT / "data"))
+EPHEMERIS_DIR = DATA_ROOT / "ephemeris"
+IERS_DIR = DATA_ROOT / "skyfield"
 
 
 def longitude(value: float):
@@ -27,12 +31,14 @@ def gha_from_ra_and_gast(ra_hours: float, gast_hours: float) -> float:
 
 
 def sample(utc: str, body: str, lat: float, lon: float) -> dict:
-    load = Loader(EPHEMERIS_DIR)
-    ts = load.timescale()
-    eph = load("de440s.bsp")
+    ephemeris = Loader(str(EPHEMERIS_DIR))
+    iers = Loader(str(IERS_DIR))
+    # Do not silently fall back to Skyfield's static, built-in historic table.
+    # `download-assets.sh` refreshes finals2000A.all when it is over 30 days old.
+    ts = iers.timescale(builtin=False)
+    eph = ephemeris("de440s.bsp")
 
-    # Skyfield accepts separate components more robustly than arbitrary strings.
-    # Expected form here: YYYY-MM-DDTHH:MM:SSZ
+    # Expected UTC form: YYYY-MM-DDTHH:MM:SSZ.
     date, time = utc.rstrip("Z").split("T")
     year, month, day = map(int, date.split("-"))
     hour, minute, second = map(int, time.split(":"))
@@ -53,7 +59,7 @@ def sample(utc: str, body: str, lat: float, lon: float) -> dict:
         "lon_deg_east_positive": lon,
         "gha_deg": gha_from_ra_and_gast(ra.hours, t.gast),
         "dec_deg": dec.degrees,
-        "hc_deg": alt.degrees,
+        "hc_geometric_deg": alt.degrees,
         "zn_deg": az.degrees,
         "distance_au": distance.au,
     }

@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+anise = "0.10.3"
 approx = "0.5.1"
 hifitime = "4.3.0"
 serde = "1.0.228"
