@@ -14,7 +14,5 @@ test('the locally captured Xaxero app starts without external executable scripts
   await expect(page.locator('#root')).toContainText('SIGHT REDUCTION FORM');
   await expect(page.locator('#root')).toContainText('OPEN ALMANAC');
   expect(await page.evaluate(() => Boolean(window.Astronomy))).toBe(true);
-  expect(externalRequests).toEqual([
-    'https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Roboto+Mono:wght@300;400;600&family=Merriweather:wght@300;400;700&display=swap',
-  ]);
+  expect(externalRequests).toEqual([]);
 });

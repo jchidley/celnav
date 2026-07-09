@@ -54,6 +54,8 @@ curl -fL --retry 2 --connect-timeout 20 -o assets/lucide.min.js https://cdn.jsde
 curl -fL --retry 2 --connect-timeout 20 -o assets/logoim.png https://xaxero.com/tools/logoim.png
 cp cnavj.html cnavj-local.html
 perl -0pi -e 's#https://cdnjs\.cloudflare\.com/ajax/libs/react/18\.2\.0/umd/react\.production\.min\.js#assets/react.production.min.js#g; s#https://cdnjs\.cloudflare\.com/ajax/libs/react-dom/18\.2\.0/umd/react-dom\.production\.min\.js#assets/react-dom.production.min.js#g; s#https://cdnjs\.cloudflare\.com/ajax/libs/babel-standalone/7\.24\.0/babel\.min\.js#assets/babel.min.js#g; s#https://cdn\.jsdelivr\.net/npm/astronomy-engine\@2\.1\.19/astronomy\.browser\.min\.js#assets/astronomy.browser.min.js#g; s#https://cdn\.jsdelivr\.net/npm/lucide\@1\.21\.0/dist/umd/lucide\.min\.js#assets/lucide.min.js#g; s#https://xaxero\.com/tools/logoim\.png#assets/logoim.png#g' cnavj-local.html
+# Do not request Google Fonts when the local reference is opened offline; CSS falls back to system fonts.
+perl -0pi -e "s#\@import url\('https://fonts\\.googleapis\\.com[^']*'\);##g" cnavj-local.html
 
 printf 'Downloading Rust/ANISE support kernels into %s/data/rust-kernels\n' "$BASE"
 cd "$BASE/data/rust-kernels"
