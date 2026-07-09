@@ -3,6 +3,8 @@ node_modules/
 dist/
 build/
 target/
+test-results/
+playwright-report/
 .venv/
 __pycache__/
 .pytest_cache/

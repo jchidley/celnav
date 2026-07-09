@@ -8,7 +8,7 @@ This repository is organised around three independent references:
 - **TypeScript + Astronomy Engine** in `celnav-browser/` as the practical browser app route.
 - **Rust** in `celnav-rs/` as an optional later experiment.
 
-Large data files are downloaded locally and are intentionally not committed.
+Large data files are downloaded locally and are intentionally not committed. See [environment setup](docs/development-environment.md), [reference data](docs/reference-data.md), and [development status](docs/development-status.md).
 
 ## Layout
 
@@ -31,6 +31,7 @@ From WSL/Debian:
 ```bash
 cd ~/src/celnav
 ./download-assets.sh
+./verify-assets.sh
 ```
 
 This downloads:
@@ -66,7 +67,7 @@ npm run check
 npm run dev
 ```
 
-The browser app uses `astronomy-engine` and should be validated against Skyfield-generated test cases.
+The browser app uses `astronomy-engine` and should be validated against Skyfield-generated test cases. It is currently only a compiling scaffold; see [development status](docs/development-status.md).
 
 ## Rust prototype
 

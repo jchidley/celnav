@@ -1,7 +1,4 @@
-use anise::{
-    naif::kpl::parser::convert_tpc,
-    prelude::Almanac,
-};
+use anise::{naif::kpl::parser::convert_tpc, prelude::Almanac};
 
 fn main() {
     let root = concat!(env!("CARGO_MANIFEST_DIR"), "/../data/");
