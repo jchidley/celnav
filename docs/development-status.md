@@ -23,7 +23,7 @@ Astronomy Engine is appropriate for a compact training/browser calculator. Its s
 
 `celnav-rs/` proves that ANISE can load the downloaded JPL SPK, Earth BPC, and converted planetary constants. No body-to-observer navigation calculation has been implemented.
 
-The `wasm32-unknown-unknown` Rust target is installed, but `cargo check --target wasm32-unknown-unknown` currently fails in ANISE's dependency graph because `getrandom` needs a web-compatible feature. Rust-to-WASM is therefore blocked pending an upstream-supported feature configuration and a dedicated browser API design.
+The `wasm32-unknown-unknown` Rust target and `wasm-bindgen` CLI are installed. ANISE now builds for it because the project disables ANISE’s default native HTTP/TLS `metaload` feature. A Playwright test loads the generated WASM module in Chromium. The remaining browser design gap is deliberate: a browser cannot use the native filesystem/memory-mapped kernel path, so it needs a safe fetched-byte or user-file kernel-loading API before it can calculate navigation results.
 
 ## Xaxero: comparator, not a dependency
 

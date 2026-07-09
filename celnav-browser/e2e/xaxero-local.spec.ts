@@ -8,7 +8,7 @@ test('the locally captured Xaxero app starts without external executable scripts
   });
 
   await page.route(/^https?:\/\/(?!127\.0\.0\.1|localhost)/, route => route.abort());
-  await page.goto('/cnavj-local.html');
+  await page.goto('/third_party/xaxero/cnavj-local.html');
 
   await expect(page).toHaveTitle('HO-229 Sight Reduction & Plotter');
   await expect(page.locator('#root')).toContainText('SIGHT REDUCTION FORM');

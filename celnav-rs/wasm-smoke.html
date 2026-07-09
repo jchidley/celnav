@@ -1,0 +1,10 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>celnav-rs WASM smoke test</title>
+<p id="status">Loading…</p>
+<script type="module">
+  import init, { backend_status } from './pkg/celnav_rs.js';
+
+  await init();
+  document.querySelector('#status').textContent = backend_status();
+</script>

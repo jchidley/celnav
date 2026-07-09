@@ -40,4 +40,11 @@ The Rust WebAssembly target is installed with:
 rustup target add wasm32-unknown-unknown
 ```
 
-This repository currently documents a known ANISE dependency-feature failure on that target. Installing the target is useful for reproducing the check, but it does not make the Rust browser route usable yet.
+The repository also requires `wasm-bindgen` CLI at the Rust dependency version. Build the browser wrapper with:
+
+```bash
+cd celnav-rs
+./build-wasm.sh
+```
+
+The wrapper builds and loads in Chromium, but it does not yet load BSP kernels in the browser or perform navigation calculations.

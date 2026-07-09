@@ -6,6 +6,12 @@ This crate verifies that ANISE can open the local JPL DE440s SPK, Earth-orientat
 cargo run
 ```
 
-Native Rust support is verified. The WASM target is installed, but ANISE currently fails to compile for `wasm32-unknown-unknown` with its default dependency features; do not start a Rust browser implementation until that compatibility issue is resolved.
+Native Rust support and a minimal browser WASM wrapper are verified:
+
+```bash
+./build-wasm.sh
+```
+
+ANISE is deliberately configured without its default `metaload` feature, which pulls native HTTP/TLS dependencies. Browser code must load kernels itself from fetched bytes or user-provided files; the wrapper does not yet implement that or any navigation calculation.
 
 For the current boundary and data ownership, see [`../docs/development-status.md`](../docs/development-status.md) and [`../docs/reference-data.md`](../docs/reference-data.md).

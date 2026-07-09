@@ -3,6 +3,7 @@ node_modules/
 dist/
 build/
 target/
+celnav-rs/pkg/
 test-results/
 playwright-report/
 .venv/

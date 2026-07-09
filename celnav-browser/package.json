@@ -9,6 +9,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest run --exclude 'e2e/**'",
+    "pretest:e2e": "../celnav-rs/build-wasm.sh",
     "test:e2e": "playwright test",
     "check": "tsc -b"
   },
