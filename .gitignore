@@ -16,9 +16,7 @@ data/rust-kernels/*
 docs/ho229/*.pdf
 
 # Third-party downloaded apps/snapshots: keep local unless licence/source is reviewed
-third_party/xaxero/*.html
-third_party/xaxero/*.png
-third_party/xaxero/*.json
+third_party/xaxero/**
 
 # OS/editor
 .DS_Store
